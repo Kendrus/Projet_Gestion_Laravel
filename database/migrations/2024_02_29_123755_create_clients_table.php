@@ -9,20 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    /*inserer la colonne dana la base de donnee*/
-    public function up(): void
+    public function up()
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('prenom'); 
+            $table->string('prenom');
+            $table->string('email')->unique();
             $table->string('adresse');
             $table->string('telephone');
-            $table->string('sexe');
-
+            $table->enum('sexe', ['M', 'F']);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

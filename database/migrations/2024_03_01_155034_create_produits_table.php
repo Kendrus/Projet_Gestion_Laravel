@@ -9,22 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('commandes', function (Blueprint $table) {
+        Schema::create('produits', function (Blueprint $table) {
             $table->id();
-            $table->string('MTT');
-            $table->string('date');
-          
+            $table->string('nom');
+            $table->text('description')->nullable();
+            $table->decimal('prix', 8, 2);
+            $table->integer('quantite_en_stock');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('commandes');
+        Schema::dropIfExists('produits');
     }
 };

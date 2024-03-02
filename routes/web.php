@@ -1,6 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ProduitController;
+
+
+Route::resource('clients', ClientController::class);
+
+
+
+Route::get('categories', [CategorieController::class, 'index']);
+Route::get('categories/{id}', [CategorieController::class, 'show']);
+
+Route::get('produits', [ProduitController::class, 'index']);
+Route::get('produits/{id}', [ProduitController::class, 'show']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +29,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('gestion');
+
+
 });
+

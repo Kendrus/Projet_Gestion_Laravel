@@ -9,24 +9,26 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+   // Le slug catégorise de façon unique chaque catégorie
+//unique() force l'unicité de cette valeur
+//Permet de générer des URLs propres et éviter les doublons de noms
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('nom');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
+  
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories');
     }
 };
