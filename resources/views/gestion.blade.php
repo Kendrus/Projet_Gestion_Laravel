@@ -2,112 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Clients, Produits et Catégories</title>
-    <!-- Inclure les fichiers CSS de Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="app.css">
-
+    <title>Formulaire</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 0;
+        }
+        .btn-primary, .btn-secondary, .btn-danger {
+            border-radius: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Liste des Clients</h1>
-        <!-- Tableau pour afficher les clients -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Adresse</th>
-                    <th>Numéro de téléphone</th>
-                    <th>Sexe</th>
-                </tr>
-            </thead>
-            <?php if (empty($clients)): ?>
-    <p>Aucun client trouvé.</p>
-<?php else: ?>
-    <!-- Afficher la liste des clients -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Adresse</th>
-                <th>Numéro de téléphone</th>
-                <th>Sexe</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Afficher chaque client dans une ligne du tableau -->
-            <!-- Utilisez les données PHP pour remplir les valeurs -->
-            <?php foreach ($clients as $client): ?>
-            <tr>
-                <td><?= $client->nom ?></td>
-                <td><?= $client->prenom ?></td>
-                <td><?= $client->adresse ?></td>
-                <td><?= $client->numero_telephone ?></td>
-                <td><?= $client->sexe ?></td>
-            </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
-<?php endif ?>
-        </table>
-
-        <h1 class="mt-5 mb-4">Liste des Produits</h1>
-        <?php if (empty($produits)): ?>
-    <p>Aucun produit trouvé.</p>
-<?php else: ?>
-    <!-- Afficher la liste des produits -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Quantité en stock</th>
-                <th>Photo</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Afficher chaque produit dans une ligne du tableau -->
-            <!-- Utilisez les données PHP pour remplir les valeurs -->
-            <?php foreach ($produits as $produit): ?>
-            <tr>
-                <td><?= $produit['nom'] ?></td>
-                <td><?= $produit['description'] ?></td>
-                <td><?= $produit['prix'] ?></td>
-                <td><?= $produit['quantite_en_stock'] ?></td>
-                <td><?= $produit['photo'] ?></td>
-            </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
-   <?php endif ?>
-
-        <h1 class="mt-5 mb-4">Liste des Catégories</h1>
-        <?php if (empty($categories)): ?>
-    <p>Aucune catégorie trouvée.</p>
-<?php else: ?>
-    <!-- Afficher la liste des catégories -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Afficher chaque catégorie dans une ligne du tableau -->
-            <!-- Utilisez les données PHP pour remplir les valeurs -->
-            <?php foreach ($categories as $categorie): ?>
-            <tr>
-                <td><?= $categorie['nom'] ?></td>
-            </tr>
-            <?php endforeach ?>
-        </tbody>
-    </table>
-<?php endif ?>
-
+    <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="clients-tab" data-toggle="tab" href="#clients" role="tab" aria-controls="clients" aria-selected="true">Clients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="produits-tab" data-toggle="tab" href="#produits" role="tab" aria-controls="produits" aria-selected="false">Produits</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="categories-tab" data-toggle="tab" href="#categories" role="tab" aria-controls="categories" aria-selected="false">Catégories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="utilisateurs-tab" data-toggle="tab" href="#utilisateurs" role="tab" aria-controls="utilisateurs" aria-selected="false">Utilisateurs</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="clients" role="tabpanel" aria-labelledby="clients-tab">
+                <!-- Formulaire pour les clients -->
+                <form>
+                    <div class="form-group">
+                        <label for="client-nom">Nom</label>
+                        <input type="text" class="form-control" id="client-nom" placeholder="Nom du client">
+                    </div>
+                    <div class="form-group">
+                        <label for="client-prenom">Prénom</label>
+                        <input type="text" class="form-control" id="client-prenom" placeholder="Prénom du client">
+                    </div>
+                    <!-- Ajoutez d'autres champs pour les clients ici -->
+                    <button type="submit" class="btn btn-primary">Ajouter un client</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="produits" role="tabpanel" aria-labelledby="produits-tab">
+                <!-- Formulaire pour les produits -->
+                <form>
+                    <div class="form-group">
+                        <label for="produit-nom">Nom</label>
+                        <input type="text" class="form-control" id="produit-nom" placeholder="Nom du produit">
+                    </div>
+                    <div class="form-group">
+                        <label for="produit-description">Description</label>
+                        <textarea class="form-control" id="produit-description" placeholder="Description du produit"></textarea>
+                    </div>
+                    <!-- Ajoutez d'autres champs pour les produits ici -->
+                    <button type="submit" class="btn btn-primary">Ajouter un produit</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+                <!-- Formulaire pour les catégories -->
+                <form>
+                    <div class="form-group">
+                        <label for="categorie-nom">Nom</label>
+                        <input type="text" class="form-control" id="categorie-nom" placeholder="Nom de la catégorie">
+                    </div>
+                    <div class="form-group">
+                        <label for="categorie-description">Description</label>
+                        <textarea class="form-control" id="categorie-description" placeholder="Description de la catégorie"></textarea>
+                    </div>
+                    <!-- Ajoutez d'autres champs pour les catégories ici -->
+                    <button type="submit" class="btn btn-primary">Ajouter une catégorie</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="utilisateurs" role="tabpanel" aria-labelledby="utilisateurs-tab">
+                <!-- Formulaire pour les utilisateurs -->
+                <form>
+                    <div class="form-group">
+                        <label for="utilisateur-nom">Nom</label>
+                        <input type="text" class="form-control" id="utilisateur-nom" placeholder="Nom de l'utilisateur">
+                    </div>
+                    <div class="form-group">
+                        <label for="utilisateur-email">Email</label>
+                        <input type="email" class="form-control" id="utilisateur-email" placeholder="Email de l'utilisateur">
+                    </div>
+                    <!-- Ajoutez d'autres champs pour les utilisateurs ici -->
+                    <button type="submit" class="btn btn-primary">Ajouter un utilisateur</button>
+                </form>
+            </div>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,73 +1,63 @@
 <?php
 
-namespace App\Http\Controllers;
-
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $clients = Client::all();
         return view('clients.index', compact('clients'));
     }
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('clients.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //Ajout des règles de validation dans le contrôleur
         $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'email' => 'required|email|unique:clients',
-            'adresse' => 'required',
-            'telephone' => 'required',
-            'sexe' => 'required|in:M,F',
+            'name' => 'required',
+            'firstname' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
         ]);
-        
+
+        Client::create($request->all());
+
+        return redirect('/clients')->with('success', 'Client ajouté avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $client = Client::find($id);
+        return view('clients.edit', compact('client'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'firstname' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+        ]);
+
+        Client::find($id)->update($request->all());
+
+        return redirect('/clients')->with('success', 'Client mis à jour avec succès');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        Client::destroy($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect('/clients')->with('success', 'Client supprimé avec succès');
     }
 }
+
+

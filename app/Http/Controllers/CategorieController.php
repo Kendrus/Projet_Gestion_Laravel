@@ -1,23 +1,58 @@
 <?php
-
-// app/Http/Controllers/CategorieController.php
-
-namespace App\Http\Controllers;
-
-use App\Models\Categorie;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategorieController extends Controller
+class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Categorie::all();
+        $categories = Category::all();
         return view('categories.index', compact('categories'));
     }
 
-    public function show($id)
+    public function create()
     {
-        $categorie = Categorie::findOrFail($id);
-        return view('categories.show', compact('categorie'));
+        return view('categories.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        Category::create($request->all());
+
+        return redirect('/categories')->with('success', 'Catégorie ajoutée avec succès');
+    }
+
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        return view('categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        Category::find($id)->update($request->all());
+
+        return redirect('/categories')->with('success', 'Catégorie mise à jour avec succès');
+    }
+
+    public function destroy($id)
+    {
+        Category::destroy($id);
+
+        return redirect('/categories')->with('success', 'Catégorie supprimée avec succès');
     }
 }
+
+
+
+
